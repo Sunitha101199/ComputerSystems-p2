@@ -74,7 +74,7 @@ class HTTPServer:
                     print("printing")
                     body+=f'<a href="{os.path.join(data_url,file)}">{file}</a><br>'
                     print(os.path.join(data_url,file))
-                head = f'HTTP/1.1 200 OK \nContent-Type: text/html\nContent-Length: {str(len(body))} \nConnection: close\n\n'
+                head = f'HTTP/1.1 200 OK \nContent-Type: {(mimetypes.MimeTypes().guess_type(fname)[0])}\nContent-Length: {str(len(body))} \nConnection: close\n\n'
                 print(head)
                 connection.sendall((head+body).encode())
 
