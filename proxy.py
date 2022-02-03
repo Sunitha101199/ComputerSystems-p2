@@ -52,7 +52,18 @@ class HTTPServer:
                 head = f'HTTP/1.1 200 OK \nContent-Type: text/html\nContent-Length: {str(len(body))} \nConnection: close\n\n'
                 print(head)
                 connection.sendall((head+body).encode())
-                   
+                
+            elif(cdirectory=="/www/rough"):
+                body=""
+                # print(os.path.join(data_url,file),"printing")
+                for file in os.listdir(cdirectory[1:]):
+                    print("printing")
+                    body+=f'<a href="{os.path.join(cdirectory,file)}">{file}</a><br>'
+                    print(os.path.join(cdirectory,file))
+                head = f'HTTP/1.1 200 OK \nContent-Type: text/html\nContent-Length: {str(len(body))} \nConnection: close\n\n'
+                print(head)
+                connection.sendall((head+body).encode())
+
              # checking if it is a file        
             elif os.path.isfile(data_url):
                 file = open(data_url, 'rb')
@@ -66,17 +77,6 @@ class HTTPServer:
                 headers = headers.encode()
                 headers += file_data
                 connection.sendall(headers)
-                
-            elif os.path.isdir(data_url) and fname!="":
-                body=""
-                # print(os.path.join(data_url,file),"printing")
-                for file in os.listdir(cdirectory[1:]):
-                    print("printing")
-                    body+=f'<a href="{os.path.join(data_url,file)}">{file}</a><br>'
-                    print(os.path.join(data_url,file))
-                head = f'HTTP/1.1 200 OK \nContent-Type: text/html\nContent-Length: {str(len(body))} \nConnection: close\n\n'
-                print(head)
-                connection.sendall((head+body).encode())
 
             else:
                 body = "<h1>Developing Web Server</h1><br>"+'\r\n'
@@ -88,7 +88,7 @@ class HTTPServer:
                 headers += "\n"
                 data = bytes(headers+body,'utf-8')
                 connection.sendall(data)
-            # msg = connection.recv(1024).decode()    
+                
             connection.close()
             
 
