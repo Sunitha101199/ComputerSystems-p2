@@ -58,8 +58,8 @@ class HTTPServer:
                 # print(os.path.join(data_url,file),"printing")
                 for file in os.listdir(cdirectory[1:]):
                     print("printing")
-                    body+=f'<a href="{os.path.join(data_url,file)}">{file}</a><br>'
-                    print(os.path.join(data_url,file))
+                    body+=f'<a href="{os.path.join(cdirectory,file)}">{file}</a><br>'
+                    print(os.path.join(cdirectory,file))
                 head = f'HTTP/1.1 200 OK \nContent-Type: text/html\nContent-Length: {str(len(body))} \nConnection: close\n\n'
                 print(head)
                 connection.sendall((head+body).encode())
